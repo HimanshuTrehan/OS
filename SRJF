@@ -14,10 +14,10 @@ void processes()
    
     for(i=0; i<n; i++)
     {
-        cout<<"\nEnter arrival time of process: ";  //input arrival time
+        cout<<"\nEnter arrival time of process "<<i+1<<":";  //input arrival time
         cin>>a[i];
    
-        cout<<"\nEnter burst time of process: ";  //input biurst time
+        cout<<"\nEnter burst time of process "<<i+1<<":";  //input biurst time
         cin>>b[i];
     }
     for(i=0; i<n; i++)
