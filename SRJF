@@ -27,3 +27,135 @@ void processes()
         m[i]=b[i];
 	}
 }
+int remaining_time()
+{
+	for(int i=0;i<n;i++)
+	{
+		if(b[i]>0)
+		{
+			return 1;
+		}
+		
+	}
+	return 0;
+}
+void addarrivedprocesses()
+{
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]==time)
+		{
+			arrivedprocesses[NAP]=i;
+			NAP++;
+		}
+	}
+}
+int getSRT()  //Shortest remaining time to find index of shortest remaining time 
+{
+	if(NAP==0)
+	{
+		return -1;
+	}
+int SRT,SRTINDEX;
+SRTINDEX=arrivedprocesses[0];
+SRT=b[arrivedprocesses[0]];
+for(int i=0;i<NAP;i++)
+{
+	if(b[arrivedprocesses[i]]<SRT)
+	{
+		SRT=b[arrivedprocesses[i]];
+		SRTINDEX=arrivedprocesses[i];
+	}
+	}	
+	return SRTINDEX;
+}
+
+void remove_from_arrived_processes(int run)
+{
+	int temp[100];
+	int x = 0;
+	for(int i=0;i<NAP;i++)
+	{
+		if(arrivedprocesses[i]!=run)
+		{
+			temp[x]=arrivedprocesses[i];
+			x++;
+		}
+	}
+	NAP=NAP-1;
+	for(int i=0;i<NAP;i++)
+	{
+		arrivedprocesses[i]=temp[i];	}
+}
+void schedule()
+{
+int x;
+int run;
+cout<<"\n SCHEDULER \n";
+while(remaining_time())
+{
+	
+	addarrivedprocesses();
+	
+	run=getSRT();
+	scheduler[time]=run;
+	b[run]--;
+	if(b[run]==0)
+	{
+		remove_from_arrived_processes(run);
+	}
+	if(run==-1)
+	{
+		cout<<"\nScheduler =[IDLE] "<<"Time="<<time;
+	
+	}
+	else
+	{
+		cout<<"\n Scheduler =Process"<<run+1<<"  Time="<<time;
+	}
+	time++;
+	}
+
+}
+
+void ATW()
+{
+
+    rem[9]=9999;
+    for(time=0; count!=n; time++)
+    {
+        smallest=9;
+        for(i=0; i<n; i++)
+        {
+            if(a[i]<=time && rem[i]<=rem[smallest] && rem[i]>0 )
+                smallest=i;
+           
+        }
+        rem[smallest]--;
+
+        if(rem[smallest]==0)
+        {
+            count++;
+            end1=time+1;
+            completion[smallest] = end1;
+            turnaround[smallest] = end1 - a[smallest];
+            waiting[smallest] = turnaround[smallest] - m[smallest];
+            
+        }
+    }
+   cout<<"\n Process"<<"\t"<< "arrival-time"<<"\t"<<"burst-time" <<"\t"<<"completion-time" <<"\t"<<"turnaround-time"<< "\t"<<"waiting-time"<<endl;
+    for(i=0; i<n; i++)
+    {
+       cout<<"p"<<i+1<<"\t\t"<<a[i]<<"\t\t"<<m[i]<<"\t\t"<<completion[i]<<"\t\t"<<turnaround[i]<<"\t\t"<<waiting[i]<<endl;
+        avg = avg + waiting[i];
+        tt = tt + turnaround[i];
+    }
+    cout<<"\n\nAverage waiting time ="<<avg/n;
+    cout<<"  Average Turnaround time ="<<tt/n<<endl;
+}
+int main()
+{
+	processes();
+	schedule();	
+ATW();
+}
