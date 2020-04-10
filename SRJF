@@ -39,7 +39,7 @@ int remaining_time()
 	}
 	return 0;
 }
-void addarrivedprocesses()
+void addarrivedprocesses()   // for adding the process in list
 {
 	for(int i=0;i<n;i++)
 	{
@@ -70,7 +70,7 @@ for(int i=0;i<NAP;i++)
 	return SRTINDEX;
 }
 
-void remove_from_arrived_processes(int run)
+void remove_from_arrived_processes(int run)  //for removing the process whose burst time is zero
 {
 	int temp[100];
 	int x = 0;
@@ -87,7 +87,7 @@ void remove_from_arrived_processes(int run)
 	{
 		arrivedprocesses[i]=temp[i];	}
 }
-void schedule()
+void schedule()   // for printing the scheduler
 {
 int x;
 int run;
@@ -95,7 +95,7 @@ cout<<"\n SCHEDULER \n";
 while(remaining_time())
 {
 	
-	addarrivedprocesses();
+	addarrivedprocesses();  
 	
 	run=getSRT();
 	scheduler[time]=run;
@@ -118,7 +118,7 @@ while(remaining_time())
 
 }
 
-void ATW()
+void ATW()     // for finding completion Turnaround and waiting time
 {
 
     rem[9]=9999;
